@@ -1,5 +1,9 @@
 # CreditLens AI — MSME Financial Health Card
 
+<p align="center">
+  <img src="docs/images/logo.png" alt="CreditLens AI Logo" width="220" />
+</p>
+
 > Underwrite New-to-Credit (NTC) & New-to-Bank (NTB) MSMEs using alternate transaction and compliance data (GST, UPI, Account Aggregator, EPFO). Exclude bureaus, leverage ML.
 
 **Built for IDBI Innovate 2026 — Track 03 (Financial Inclusion, Digital Lending & Credit Decisioning)**
