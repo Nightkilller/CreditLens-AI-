@@ -1,0 +1,70 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#0B3B36',
+          50: '#E8F0EF',
+          100: '#D1E1DF',
+          200: '#A3C3BF',
+          300: '#75A59F',
+          400: '#47877F',
+          500: '#0B3B36',
+          600: '#09322E',
+          700: '#072926',
+          800: '#05201E',
+          900: '#031716',
+        },
+        secondary: {
+          DEFAULT: '#1C7293',
+          50: '#E8F3F7',
+          100: '#D1E7EF',
+          200: '#A3CFDF',
+          300: '#75B7CF',
+          400: '#479FBF',
+          500: '#1C7293',
+          600: '#176079',
+          700: '#124E60',
+          800: '#0D3C47',
+          900: '#082A2E',
+        },
+        accent: {
+          DEFAULT: '#D4AF37',
+          50: '#FBF6E7',
+          100: '#F7EDCF',
+          200: '#EFDB9F',
+          300: '#E7C96F',
+          400: '#DFB73F',
+          500: '#D4AF37',
+          600: '#B3932E',
+          700: '#927725',
+          800: '#715B1C',
+          900: '#503F13',
+        },
+        canvas: '#FFFFFF',
+        surface: '#F7F9F8',
+        border: '#E5E7EB',
+        'text-primary': '#1A1A1A',
+        'text-secondary': '#6B7280',
+        risk: {
+          healthy: '#1F9D55',
+          moderate: '#E5A93B',
+          high: '#D6453D',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      boxShadow: {
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04)',
+        'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04)',
+      },
+    },
+  },
+  plugins: [],
+}

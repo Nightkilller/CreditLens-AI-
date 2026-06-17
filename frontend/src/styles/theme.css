@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===================================
+   CreditLens AI — Design Tokens
+   =================================== */
+
+:root {
+  /* Primary palette */
+  --color-primary: #0B3B36;
+  --color-secondary: #1C7293;
+  --color-accent: #D4AF37;
+
+  /* Surfaces */
+  --color-canvas: #FFFFFF;
+  --color-surface: #F7F9F8;
+  --color-border: #E5E7EB;
+
+  /* Text */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #6B7280;
+
+  /* Risk tiers */
+  --color-risk-healthy: #1F9D55;
+  --color-risk-moderate: #E5A93B;
+  --color-risk-high: #D6453D;
+
+  /* Typography */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --sidebar-width: 240px;
+}
+
+/* ===================================
+   Base resets
+   =================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===================================
+   Scrollbar styling
+   =================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c5ca;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0a5ab;
+}
+
+/* ===================================
+   Utility classes
+   =================================== */
+
+.card {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* Transition helper */
+.transition-base {
+  transition: all 0.2s ease-in-out;
+}
