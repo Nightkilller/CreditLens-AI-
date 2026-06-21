@@ -9,6 +9,8 @@
 **Built for IDBI Innovate 2026 — Track 03 (Financial Inclusion, Digital Lending & Credit Decisioning)**
 
 > [!IMPORTANT]
+> **Live Demo Website**: [https://credit-lens-ai.vercel.app/login](https://credit-lens-ai.vercel.app/login)
+> 
 > **Demo Credentials for Reviewers & Judges**:
 > * **Username / Email**: `admin@idbi.co.in`
 > * **Password**: `CreditLens2026`
