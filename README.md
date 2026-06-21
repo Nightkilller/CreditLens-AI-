@@ -56,7 +56,24 @@ creditlens-ai/
 
 ## Quick Start Guide
 
-### 1. Model Training & Data Setup
+### Option A: Zero-Config Docker Compose (Recommended)
+This command automatically spins up MongoDB, generates the synthetic dataset, trains the ML model, and launches both the backend and frontend services:
+
+1. Ensure **Docker** is installed and running on your system.
+2. Run the following command in the project root:
+   ```bash
+   docker compose up --build
+   ```
+3. Open your browser and navigate to:
+   * **Dashboard**: [http://localhost](http://localhost)
+   * **API Swagger Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+   * **Credentials**: `admin@idbi.co.in` / `CreditLens2026` *(login screen automatically autofills these details)*
+
+---
+
+### Option B: Step-by-Step Manual Setup (Local Development)
+
+#### 1. Model Training & Data Setup
 Install Python dependencies and generate the synthetic dataset of 2,000 businesses, then train the model to build the decision artifacts:
 ```bash
 # Set up env variables
