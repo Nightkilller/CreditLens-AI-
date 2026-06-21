@@ -1,6 +1,12 @@
 import axios from 'axios'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api'
+// Dynamically ensure the URL ends with /api for routing compatibility
+let baseUrl = import.meta.env.VITE_API_URL || '/api'
+if (baseUrl !== '/api' && !baseUrl.endsWith('/api') && !baseUrl.endsWith('/api/')) {
+  baseUrl = baseUrl.replace(/\/$/, '') + '/api'
+}
+
+const API_BASE_URL = baseUrl
 
 const api = axios.create({
   baseURL: API_BASE_URL,
