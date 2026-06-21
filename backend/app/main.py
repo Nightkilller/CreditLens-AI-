@@ -114,17 +114,30 @@ app = FastAPI(
 )
 
 # ─── CORS ─────────────────────────────────────────────────────
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        settings.frontend_url,
-        "http://localhost:5173",
-        "http://localhost:3000",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+cors_origins = [
+    settings.frontend_url,
+    "http://localhost:5173",
+    "http://localhost:3000",
+]
+
+# If wildcard is used, disable credentials to prevent Starlette AssertionErrors
+if "*" in cors_origins or not settings.frontend_url:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[o for o in cors_origins if o and o != "*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
 
 # ─── Register Routes ─────────────────────────────────────────
 app.include_router(auth.router)
