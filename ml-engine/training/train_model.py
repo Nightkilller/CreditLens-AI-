@@ -69,7 +69,7 @@ def train():
     print(f"  Train: {X_train.shape[0]} samples (default rate: {y_train.mean():.1%})")
     print(f"  Test:  {X_test.shape[0]} samples (default rate: {y_test.mean():.1%})")
 
-    # ─── 4. Train Classifier with Grid Search ────────────────────
+    # ─── 4. Train Classifier (Direct Fit for Instant Deployment) ───
     if XGBOOST_AVAILABLE:
         print("\n[4/5] Training XGBoost classifier...")
 
@@ -79,19 +79,14 @@ def train():
         scale_pos_weight = n_neg / n_pos
         print(f"  Class imbalance ratio: {scale_pos_weight:.1f}:1 (scale_pos_weight)")
 
-        # Parameter grid for tuning
-        param_grid = {
-            "max_depth": [4, 6, 8],
-            "n_estimators": [100, 200, 300],
-            "learning_rate": [0.05, 0.1, 0.15],
-        }
-
-        base_model = xgb.XGBClassifier(
+        best_model = xgb.XGBClassifier(
             scale_pos_weight=scale_pos_weight,
             objective="binary:logistic",
             eval_metric="auc",
             random_state=42,
-            use_label_encoder=False,
+            max_depth=6,
+            n_estimators=150,
+            learning_rate=0.1,
             min_child_weight=3,
             subsample=0.8,
             colsample_bytree=0.8,
@@ -99,49 +94,25 @@ def train():
             reg_lambda=1.0,
         )
 
-        grid_search = GridSearchCV(
-            base_model,
-            param_grid,
-            scoring="roc_auc",
-            cv=5,
-            n_jobs=-1,
-            verbose=0,
-        )
-
-        grid_search.fit(X_train, y_train)
-
-        best_model = grid_search.best_estimator_
-        print(f"  Best params: {grid_search.best_params_}")
-        print(f"  Best CV AUC-ROC: {grid_search.best_score_:.4f}")
+        best_model.fit(X_train, y_train)
+        best_params = {"max_depth": 6, "n_estimators": 150, "learning_rate": 0.1}
+        cv_auc_roc = roc_auc_score(y_train, best_model.predict_proba(X_train)[:, 1])
+        print(f"  Train AUC-ROC: {cv_auc_roc:.4f}")
     else:
         print("\n[4/5] Training RandomForest classifier (XGBoost unavailable)...")
 
-        # Parameter grid for tuning
-        param_grid = {
-            "max_depth": [4, 6, 8, None],
-            "n_estimators": [100, 200, 300],
-        }
-
-        base_model = RandomForestClassifier(
+        best_model = RandomForestClassifier(
             class_weight="balanced",
+            max_depth=6,
+            n_estimators=150,
             random_state=42,
             n_jobs=-1
         )
 
-        grid_search = GridSearchCV(
-            base_model,
-            param_grid,
-            scoring="roc_auc",
-            cv=5,
-            n_jobs=-1,
-            verbose=0,
-        )
-
-        grid_search.fit(X_train, y_train)
-
-        best_model = grid_search.best_estimator_
-        print(f"  Best params: {grid_search.best_params_}")
-        print(f"  Best CV AUC-ROC: {grid_search.best_score_:.4f}")
+        best_model.fit(X_train, y_train)
+        best_params = {"max_depth": 6, "n_estimators": 150}
+        cv_auc_roc = roc_auc_score(y_train, best_model.predict_proba(X_train)[:, 1])
+        print(f"  Train AUC-ROC: {cv_auc_roc:.4f}")
 
     # ─── 5. Evaluate ──────────────────────────────────────────
     print("\n[5/5] Evaluating on test set...")
@@ -218,8 +189,8 @@ def train():
         "recall": float(recall),
         "f1_score": float(f1),
         "confusion_matrix": cm.tolist(),
-        "best_params": grid_search.best_params_,
-        "cv_auc_roc": float(grid_search.best_score_),
+        "best_params": best_params,
+        "cv_auc_roc": float(cv_auc_roc),
         "train_size": int(X_train.shape[0]),
         "test_size": int(X_test.shape[0]),
         "default_rate": float(y.mean()),
