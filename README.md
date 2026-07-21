@@ -108,7 +108,7 @@ npm run dev
 
 ---
 
-## Section 7: Verification & Acceptance Checklist
+## Section 7: Verifications & Acceptance Checklist
 
 Use this checklist to verify compliance of the submission against track criteria:
 
